@@ -97,6 +97,24 @@ class Num2Word_Base(object):
             return '%s ' % self.negword, num_str[1:]
         return '', num_str
 
+    def standardize_format(self, value):
+        """Convert to a standard decimal format
+
+        Args:
+            value (str): string to standardize
+
+        Returns:
+            str: standardized string
+        """
+        if "," in value:
+            comma_seperated = value.split(",")
+            if len(comma_seperated) > 1 and len(comma_seperated[-1]) == 2:
+                before_seperator = " ".join(comma_seperated[:-1]).replace(".", "")
+                value = ".".join([before_seperator, comma_seperated[-1]])
+            else:
+                value = value.replace(",", "")        
+        return value
+    
     def str_to_number(self, value):
         return Decimal(value)
 
